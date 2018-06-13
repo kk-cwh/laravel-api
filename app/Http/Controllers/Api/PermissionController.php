@@ -1,47 +1,35 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: ZY
- * Date: 2018/6/13
- * Time: 18:37
- */
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Resources\PermissionResource;
 
-use App\Http\Resources\UserResource;
-use App\User;
+use App\Permission;
 use Illuminate\Http\Request;
 
-class UserController extends ApiController
+class PermissionController extends ApiController
 {
-	protected $user;
-	public function __construct(User $user)
-	{
-		parent::__construct();
-		$this->user = $user;
-	}
+
+
+    protected $permission;
+
+
+    public function __construct(Permission $permission)
+    {
+        parent::__construct();
+        $this->permission = $permission;
+    }
 
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-	public function index()
-	{
-		//
-		// $user = $this->user->with('roles')->find(1);
-		// return $this->apiResponse->item($user, UserResource::class);
-
-		// $users = $this->user->all();
-		// return $this->apiResponse->collection($users,UserResource::class);
-		//
-		$users = $this->user->with('roles')->paginate();
-		return $this->apiResponse->paginator($users, UserResource::class);
-		//
-		// $this->apiResponse->errorBadRequest();
-		// $this->apiResponse->noContent();
-	}
+    public function index()
+    {
+        $permissions = $this->permission->paginate();
+        return $this->apiResponse->paginator($permissions, PermissionResource::class);
+    }
 
 
     /**
@@ -53,7 +41,7 @@ class UserController extends ApiController
     public function store(Request $request)
     {
         $inputs = $request->all();
-        $this->user->fill($inputs)->save();
+        $this->permission->fill($inputs)->save();
         return $this->apiResponse->created();
     }
 
@@ -65,8 +53,8 @@ class UserController extends ApiController
      */
     public function show($id)
     {
-        $user = $this->user->find($id);
-        return $this->apiResponse->item($user, UserResource::class);
+        $permission = $this->permission->find($id);
+        return $this->apiResponse->item($permission, PermissionResource::class);
     }
 
 
@@ -79,8 +67,8 @@ class UserController extends ApiController
      */
     public function update(Request $request, $id)
     {
-        $updates = $request->only($this->user->getFillable());
-        $this->user->where('id', $id)->update($updates);
+        $updates = $request->only($this->permission->getFillable());
+        $this->permission->where('id', $id)->update($updates);
         return $this->apiResponse->noContent();
     }
 
@@ -92,7 +80,7 @@ class UserController extends ApiController
      */
     public function destroy($id)
     {
-        $this->user->where('id', $id)->update(['status'=>0]);
+        $this->permission->where('id', $id)->update(['status'=>0]);
         return $this->apiResponse->noContent();
     }
 }

@@ -1,47 +1,35 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: ZY
- * Date: 2018/6/13
- * Time: 18:37
- */
 
 namespace App\Http\Controllers\Api;
 
 
-use App\Http\Resources\UserResource;
-use App\User;
+use App\Http\Resources\TagResource;
+use App\Tag;
 use Illuminate\Http\Request;
 
-class UserController extends ApiController
+class TagController extends ApiController
 {
-	protected $user;
-	public function __construct(User $user)
-	{
-		parent::__construct();
-		$this->user = $user;
-	}
+
+
+    protected $tag;
+
+
+    public function __construct(Tag $tag)
+    {
+        parent::__construct();
+        $this->tag = $tag;
+    }
 
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-	public function index()
-	{
-		//
-		// $user = $this->user->with('roles')->find(1);
-		// return $this->apiResponse->item($user, UserResource::class);
-
-		// $users = $this->user->all();
-		// return $this->apiResponse->collection($users,UserResource::class);
-		//
-		$users = $this->user->with('roles')->paginate();
-		return $this->apiResponse->paginator($users, UserResource::class);
-		//
-		// $this->apiResponse->errorBadRequest();
-		// $this->apiResponse->noContent();
-	}
+    public function index()
+    {
+        $tags = $this->tag->paginate();
+        return $this->apiResponse->paginator($tags, TagResource::class);
+    }
 
 
     /**
@@ -53,7 +41,7 @@ class UserController extends ApiController
     public function store(Request $request)
     {
         $inputs = $request->all();
-        $this->user->fill($inputs)->save();
+        $this->tag->fill($inputs)->save();
         return $this->apiResponse->created();
     }
 
@@ -65,8 +53,8 @@ class UserController extends ApiController
      */
     public function show($id)
     {
-        $user = $this->user->find($id);
-        return $this->apiResponse->item($user, UserResource::class);
+        $tag = $this->tag->find($id);
+        return $this->apiResponse->item($tag, TagResource::class);
     }
 
 
@@ -79,8 +67,8 @@ class UserController extends ApiController
      */
     public function update(Request $request, $id)
     {
-        $updates = $request->only($this->user->getFillable());
-        $this->user->where('id', $id)->update($updates);
+        $updates = $request->only($this->tag->getFillable());
+        $this->tag->where('id', $id)->update($updates);
         return $this->apiResponse->noContent();
     }
 
@@ -92,7 +80,7 @@ class UserController extends ApiController
      */
     public function destroy($id)
     {
-        $this->user->where('id', $id)->update(['status'=>0]);
+        $this->tag->where('id', $id)->update(['status'=>0]);
         return $this->apiResponse->noContent();
     }
 }
