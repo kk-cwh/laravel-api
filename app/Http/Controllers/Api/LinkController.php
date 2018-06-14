@@ -1,47 +1,34 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: ZY
- * Date: 2018/6/13
- * Time: 18:37
- */
 
 namespace App\Http\Controllers\Api;
 
-
-use App\Http\Resources\UserResource;
-use App\User;
+use App\Http\Resources\LinkResource;
+use App\Link;
 use Illuminate\Http\Request;
 
-class UserController extends ApiController
+class LinkController extends ApiController
 {
-	protected $user;
-	public function __construct(User $user)
-	{
-		parent::__construct();
-		$this->user = $user;
-	}
+
+
+    protected $link;
+
+
+    public function __construct(Link $link)
+    {
+        parent::__construct();
+        $this->link = $link;
+    }
 
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-	public function index()
-	{
-		//
-		// $user = $this->user->with('roles')->find(1);
-		// return $this->apiResponse->item($user, UserResource::class);
-
-		// $users = $this->user->all();
-		// return $this->apiResponse->collection($users,UserResource::class);
-		//
-		$users = $this->user->with('roles')->find(1);
-		return $this->apiResponse->json($users,['author-user'=>'zhangyake']);
-		//
-		// $this->apiResponse->errorBadRequest();
-		// $this->apiResponse->noContent();
-	}
+    public function index()
+    {
+        $links = $this->link->paginate();
+        return $this->apiResponse->paginator($links, LinkResource::class);
+    }
 
 
     /**
@@ -53,7 +40,7 @@ class UserController extends ApiController
     public function store(Request $request)
     {
         $inputs = $request->all();
-        $this->user->fill($inputs)->save();
+        $this->link->fill($inputs)->save();
         return $this->apiResponse->created();
     }
 
@@ -65,8 +52,8 @@ class UserController extends ApiController
      */
     public function show($id)
     {
-        $user = $this->user->find($id);
-        return $this->apiResponse->item($user, UserResource::class);
+        $link = $this->link->find($id);
+        return $this->apiResponse->item($link, LinkResource::class);
     }
 
 
@@ -79,8 +66,8 @@ class UserController extends ApiController
      */
     public function update(Request $request, $id)
     {
-        $updates = $request->only($this->user->getFillable());
-        $this->user->where('id', $id)->update($updates);
+        $updates = $request->only($this->link->getFillable());
+        $this->link->where('id', $id)->update($updates);
         return $this->apiResponse->noContent();
     }
 
@@ -92,7 +79,7 @@ class UserController extends ApiController
      */
     public function destroy($id)
     {
-        $this->user->where('id', $id)->update(['status'=>0]);
+        $this->link->where('id', $id)->update(['status'=>0]);
         return $this->apiResponse->noContent();
     }
 }

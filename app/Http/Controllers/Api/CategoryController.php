@@ -1,47 +1,35 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: ZY
- * Date: 2018/6/13
- * Time: 18:37
- */
 
 namespace App\Http\Controllers\Api;
 
 
-use App\Http\Resources\UserResource;
-use App\User;
+use App\Http\Resources\CategoryResource;
+use App\Category;
 use Illuminate\Http\Request;
 
-class UserController extends ApiController
+class CategoryController extends ApiController
 {
-	protected $user;
-	public function __construct(User $user)
-	{
-		parent::__construct();
-		$this->user = $user;
-	}
+
+
+    protected $category;
+
+
+    public function __construct(Category $category)
+    {
+        parent::__construct();
+        $this->category = $category;
+    }
 
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-	public function index()
-	{
-		//
-		// $user = $this->user->with('roles')->find(1);
-		// return $this->apiResponse->item($user, UserResource::class);
-
-		// $users = $this->user->all();
-		// return $this->apiResponse->collection($users,UserResource::class);
-		//
-		$users = $this->user->with('roles')->find(1);
-		return $this->apiResponse->json($users,['author-user'=>'zhangyake']);
-		//
-		// $this->apiResponse->errorBadRequest();
-		// $this->apiResponse->noContent();
-	}
+    public function index()
+    {
+        $categories = $this->category->paginate();
+        return $this->apiResponse->paginator($categories, CategoryResource::class);
+    }
 
 
     /**
@@ -53,7 +41,7 @@ class UserController extends ApiController
     public function store(Request $request)
     {
         $inputs = $request->all();
-        $this->user->fill($inputs)->save();
+        $this->category->fill($inputs)->save();
         return $this->apiResponse->created();
     }
 
@@ -65,8 +53,8 @@ class UserController extends ApiController
      */
     public function show($id)
     {
-        $user = $this->user->find($id);
-        return $this->apiResponse->item($user, UserResource::class);
+        $category = $this->category->find($id);
+        return $this->apiResponse->item($category, CategoryResource::class);
     }
 
 
@@ -79,8 +67,8 @@ class UserController extends ApiController
      */
     public function update(Request $request, $id)
     {
-        $updates = $request->only($this->user->getFillable());
-        $this->user->where('id', $id)->update($updates);
+        $updates = $request->only($this->category->getFillable());
+        $this->category->where('id', $id)->update($updates);
         return $this->apiResponse->noContent();
     }
 
@@ -92,7 +80,7 @@ class UserController extends ApiController
      */
     public function destroy($id)
     {
-        $this->user->where('id', $id)->update(['status'=>0]);
+        $this->category->where('id', $id)->update(['status'=>0]);
         return $this->apiResponse->noContent();
     }
 }

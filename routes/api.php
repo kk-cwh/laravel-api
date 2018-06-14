@@ -12,24 +12,26 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-use App\User;
-use App\Http\Resources\User as UserResource;
-use App\Http\Resources\UserCollection;
 
-Route::get('/user', function () {
-	return new UserCollection(User::all());
-});
-Route::get('/users', function () {
-	// return (new UserResource(User::find(1)))->additional(['meta' => [
-	// 	'key2' => 'va2lue',
-	// ]]);
-	return  UserResource::collection(User::get())->additional(['meta' => [
-		'key2' => 'va2lue',
-	]]);
+
+Route::namespace('Api')->group(function () {
+
+    Route::resource('permissions', 'PermissionController', ['only' => ['index', 'show', 'store', 'update', 'destroy']]);
+    Route::resource('roles', 'RoleController', ['only' => ['index', 'show', 'store', 'update', 'destroy']]);
+    Route::resource('users', 'UserController', ['only' => ['index', 'show', 'store', 'update', 'destroy']]);
+    Route::resource('menus', 'MenuController', ['only' => ['index', 'show', 'store', 'update', 'destroy']]);
+    Route::resource('categories', 'CategoryController', ['only' => ['index', 'show', 'store', 'update', 'destroy']]);
+    Route::resource('tags', 'TagController', ['only' => ['index', 'show', 'store', 'update', 'destroy']]);
+    Route::resource('links', 'LinkController', ['only' => ['index', 'show', 'store', 'update', 'destroy']]);
+    Route::resource('articles', 'ArticleController', ['only' => ['index', 'show', 'store', 'update', 'destroy']]);
+
+
 });
 
-// Route::get('/u','Api\ApiController@index');
-// Route::middleware('auth:api')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
-Route::get('/uu','Api\UserController@index');
+Route::middleware('auth:api')->get('/user', function (Request $request) {
+    return $request->user();
+});
+
+
+
+
