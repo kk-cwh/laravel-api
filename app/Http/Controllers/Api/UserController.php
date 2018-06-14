@@ -30,8 +30,8 @@ class UserController extends ApiController
 		// $users = $this->user->all();
 		// return $this->apiResponse->collection($users,UserResource::class);
 		//
-		$users = $this->user->with('roles')->paginate();
-		return $this->apiResponse->paginator($users, UserResource::class);
+		$users = $this->user->with('roles')->find(1);
+		return $this->apiResponse->json($users,['author-user'=>'zhangyake']);
 		//
 		// $this->apiResponse->errorBadRequest();
 		// $this->apiResponse->noContent();

@@ -60,6 +60,16 @@ class ApiResponse
 		return $response->setStatusCode(Response::HTTP_NO_CONTENT);
 	}
 
+	/**
+	 * Return a json response.
+	 * @param array $data
+	 * @param array $headers
+	 * @return Response
+	 */
+	public function json($data = [], array $headers = [])
+	{
+		return new Response(compact('data'),Response::HTTP_OK,$headers);
+	}
 
 	/**
 	 *  Bind an item to a apiResource and start building a response.
