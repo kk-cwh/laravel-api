@@ -3,7 +3,7 @@
 namespace App\Support;
 
 use Illuminate\Contracts\Pagination\Paginator;
-use Illuminate\Http\Response ;
+use Illuminate\Http\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class ApiResponse
@@ -20,7 +20,7 @@ class ApiResponse
 		$response = new Response($content);
 		// 201
 		$response->setStatusCode(Response::HTTP_CREATED);
-		if (! is_null($location)) {
+		if (!is_null($location)) {
 			$response->header('Location', $location);
 		}
 
@@ -41,7 +41,7 @@ class ApiResponse
 		// 202
 		$response->setStatusCode(Response::HTTP_ACCEPTED);
 
-		if (! is_null($location)) {
+		if (!is_null($location)) {
 			$response->header('Location', $location);
 		}
 
@@ -68,7 +68,7 @@ class ApiResponse
 	 */
 	public function json($data = [], array $headers = [])
 	{
-		return new Response(compact('data'),Response::HTTP_OK,$headers);
+		return new Response(compact('data'), Response::HTTP_OK, $headers);
 	}
 
 	/**
@@ -113,7 +113,7 @@ class ApiResponse
 	 */
 	public function paginator(Paginator $paginator, $resourceClass, array $meta = [])
 	{
-		return $this->collection($paginator,$resourceClass,$meta);
+		return $this->collection($paginator, $resourceClass, $meta);
 	}
 
 	/**
@@ -123,7 +123,7 @@ class ApiResponse
 	 * @param        $statusCode
 	 * @return void
 	 */
-	public function error($message, $statusCode=400)
+	public function error($message, $statusCode = 400)
 	{
 		// return new Response(compact('message','status_code'),$status_code,$header);
 		throw new HttpException($statusCode, $message);
