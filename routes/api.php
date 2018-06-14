@@ -13,8 +13,13 @@ use Illuminate\Http\Request;
 |
 */
 
+Route::post('auth/login', 'Api\JwtAuthController@login')->name('auth.login');
 
-Route::namespace('Api')->group(function () {
+Route::namespace('Api')->group(function (){
+
+	Route::get('auth/me', 'JwtAuthController@me')->name('auth.me');
+	Route::delete('auth/logout', 'JwtAuthController@logout')->name('auth.logout');
+	Route::patch('auth/refresh', 'JwtAuthController@refresh')->name('auth.refresh');
 
     Route::resource('permissions', 'PermissionController', ['only' => ['index', 'show', 'store', 'update', 'destroy']]);
     Route::resource('roles', 'RoleController', ['only' => ['index', 'show', 'store', 'update', 'destroy']]);
