@@ -12,6 +12,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Resources\UserResource;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends ApiController
 {
@@ -44,6 +45,7 @@ class UserController extends ApiController
     public function store(Request $request)
     {
         $inputs = $request->all();
+	    $inputs['password'] = Hash::make($inputs['password']);
         $this->user->fill($inputs)->save();
         return $this->apiResponse->created();
     }
