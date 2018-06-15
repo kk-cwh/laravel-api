@@ -30,7 +30,8 @@ class UserController extends ApiController
      */
 	public function index()
 	{
-		$users = $this->user->with('roles')->paginate();
+		$perPage = request('per_page',10);
+		$users = $this->user->with('roles')->paginate($perPage);
 		return $this->apiResponse->paginator($users,UserResource::class);
 
 	}
