@@ -17,76 +17,80 @@ use Illuminate\Support\Facades\Hash;
 class UserController extends ApiController
 {
 	protected $user;
+
 	public function __construct(User $user)
 	{
 		parent::__construct();
 		$this->user = $user;
 	}
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+	/**
+	 * Display a listing of the resource.
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
 	public function index()
 	{
-		$perPage = request('per_page',10);
-		$users = $this->user->with('roles')->paginate($perPage);
-		return $this->apiResponse->paginator($users,UserResource::class);
+		$perPage = request('per_page', 10);
+		$users   = $this->user->with('roles')
+			->when(request('name', '') !== '', function($query) {
+				$query->where('name', 'like', '%' . request('name', '') . '%');
+			})->paginate($perPage);
+		return $this->apiResponse->paginator($users, UserResource::class);
 
 	}
 
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        $inputs = $request->all();
-	    $inputs['password'] = Hash::make($inputs['password']);
-        $this->user->fill($inputs)->save();
-        return $this->apiResponse->created();
-    }
+	/**
+	 * Store a newly created resource in storage.
+	 *
+	 * @param  \Illuminate\Http\Request $request
+	 * @return \Illuminate\Http\Response
+	 */
+	public function store(Request $request)
+	{
+		$inputs             = $request->all();
+		$inputs['password'] = Hash::make($inputs['password']);
+		$this->user->fill($inputs)->save();
+		return $this->apiResponse->created();
+	}
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        $user = $this->user->find($id);
-        return $this->apiResponse->item($user, UserResource::class);
-    }
+	/**
+	 * Display the specified resource.
+	 *
+	 * @param  int $id
+	 * @return \Illuminate\Http\Response
+	 */
+	public function show($id)
+	{
+		$user = $this->user->find($id);
+		return $this->apiResponse->item($user, UserResource::class);
+	}
 
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        $updates = $request->only($this->user->getFillable());
-        $this->user->where('id', $id)->update($updates);
-        return $this->apiResponse->noContent();
-    }
+	/**
+	 * Update the specified resource in storage.
+	 *
+	 * @param  \Illuminate\Http\Request $request
+	 * @param  int                      $id
+	 * @return \Illuminate\Http\Response
+	 */
+	public function update(Request $request, $id)
+	{
+		$updates = $request->only($this->user->getFillable());
+		$this->user->where('id', $id)->update($updates);
+		return $this->apiResponse->noContent();
+	}
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        $this->user->where('id', $id)->update(['status'=>0]);
-        return $this->apiResponse->noContent();
-    }
+	/**
+	 * Remove the specified resource from storage.
+	 *
+	 * @param  int $id
+	 * @return \Illuminate\Http\Response
+	 */
+	public function destroy($id)
+	{
+		$this->user->where('id', $id)->update(['status' => 0]);
+		return $this->apiResponse->noContent();
+	}
 }
