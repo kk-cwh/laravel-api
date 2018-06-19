@@ -3,23 +3,38 @@
 namespace App\Http\Controllers\Api;
 
 
-use App\Http\Resources\TagResource;
-use App\Tag;
+
 use Illuminate\Http\Request;
 
-class TagController extends ApiController
+class UploadController extends ApiController
 {
 
 
-    protected $tag;
 
 
-    public function __construct(Tag $tag)
+
+    public function __construct( )
     {
         parent::__construct();
-        $this->tag = $tag;
-    }
 
+    }
+	public function fileUpload(Request $request)
+	{
+		$strategy = $request->get('strategy', 'images');
+
+		if (!$request->hasFile('file')) {
+			return $this->apiResponse->json([
+				'success' => false,
+				'error' => 'no file found.',
+			]);
+		}
+		$file=$request->file('file');
+		$path = $strategy . '/' . date('Y') . '/' . date('m') . '/' . date('d');
+
+		$result = $file->store($path,'public');
+
+		return $this->apiResponse->json('http://laravel.api.lara/storage/'.$result);
+	}
     /**
      * Display a listing of the resource.
      *
@@ -27,11 +42,7 @@ class TagController extends ApiController
      */
     public function index()
     {
-	    $perPage = request('per_page', 10);
-        $tags = $this->tag->when(request('fields', '') == 'select:id|tag', function($query) {
-	        $query->select('id','tag');
-        })->paginate($perPage);
-        return $this->apiResponse->paginator($tags, TagResource::class);
+
     }
 
 
@@ -43,9 +54,7 @@ class TagController extends ApiController
      */
     public function store(Request $request)
     {
-        $inputs = $request->all();
-        $this->tag->fill($inputs)->save();
-        return $this->apiResponse->created();
+
     }
 
     /**
@@ -56,8 +65,7 @@ class TagController extends ApiController
      */
     public function show($id)
     {
-        $tag = $this->tag->find($id);
-        return $this->apiResponse->item($tag, TagResource::class);
+
     }
 
 
@@ -70,9 +78,7 @@ class TagController extends ApiController
      */
     public function update(Request $request, $id)
     {
-        $updates = $request->only($this->tag->getFillable());
-        $this->tag->where('id', $id)->update($updates);
-        return $this->apiResponse->noContent();
+
     }
 
     /**
@@ -83,7 +89,6 @@ class TagController extends ApiController
      */
     public function destroy($id)
     {
-        $this->tag->where('id', $id)->update(['status'=>0]);
-        return $this->apiResponse->noContent();
+
     }
 }

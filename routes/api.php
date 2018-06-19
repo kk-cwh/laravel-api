@@ -30,6 +30,7 @@ Route::namespace('Api')->group(function (){
     Route::resource('links', 'LinkController', ['only' => ['index', 'show', 'store', 'update', 'destroy']]);
     Route::resource('articles', 'ArticleController', ['only' => ['index', 'show', 'store', 'update', 'destroy']]);
 
+    Route::post('upload', 'UploadController@fileUpload')->name('upload.fileUpload');
 
 });
 

@@ -27,7 +27,10 @@ class CategoryController extends ApiController
      */
     public function index()
     {
-        $categories = $this->category->paginate();
+	    $perPage = request('per_page', 10);
+	    $categories = $this->category->when(request('fields', '') == 'select:id|name', function($query) {
+		    $query->select('id','name');
+	    })->paginate($perPage);
         return $this->apiResponse->paginator($categories, CategoryResource::class);
     }
 
