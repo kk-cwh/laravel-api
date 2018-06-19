@@ -41,6 +41,7 @@ class ArticleController extends ApiController
     public function store(Request $request)
     {
         $inputs = $request->all();
+        $inputs['user_id'] = auth()->user()->id;
         $this->article->fill($inputs)->save();
         return $this->apiResponse->created();
     }
