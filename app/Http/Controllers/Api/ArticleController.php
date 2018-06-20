@@ -43,6 +43,10 @@ class ArticleController extends ApiController
         $inputs = $request->all();
         $inputs['user_id'] = auth()->user()->id;
         $this->article->fill($inputs)->save();
+	    $tagIds = $request->input('tag_ids');
+        if ( is_array($tagIds) && count($tagIds)){
+	        $this->article->tags()->attach($tagIds);
+        }
         return $this->apiResponse->created();
     }
 
