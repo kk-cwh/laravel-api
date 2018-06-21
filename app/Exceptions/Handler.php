@@ -51,7 +51,8 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-	    if ($exception instanceof HttpException) {
+
+	    if ( $request->ajax() && $exception instanceof HttpException) {
 	    	$message = $exception->getMessage();
 	    	$status_code = $exception->getStatusCode();
 		    return new Response(compact('message','status_code'),$status_code);

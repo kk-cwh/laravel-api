@@ -32,14 +32,14 @@
     <nav class="navbar navbar-default" id="navbar">
         <div class="container">
             <div class="header-topbar hidden-xs link-border">
-                <ul class="site-nav topmenu">
-                    <li><a href="http://www.muzhuangnet.com/tags/" >标签云</a></li>
-                    <li><a href="http://www.muzhuangnet.com/readers/" rel="nofollow" >读者墙</a></li>
-                    <li><a href="http://www.muzhuangnet.com/rss.html" title="RSS订阅" >
-                            <i class="fa fa-rss">
-                            </i> RSS订阅
-                        </a></li>
-                </ul>
+                {{--<ul class="site-nav topmenu">--}}
+                    {{--<li><a href="http://www.muzhuangnet.com/tags/" >标签云</a></li>--}}
+                    {{--<li><a href="http://www.muzhuangnet.com/readers/" rel="nofollow" >读者墙</a></li>--}}
+                    {{--<li><a href="http://www.muzhuangnet.com/rss.html" title="RSS订阅" >--}}
+                            {{--<i class="fa fa-rss">--}}
+                            {{--</i> RSS订阅--}}
+                        {{--</a></li>--}}
+                {{--</ul>--}}
                 勤记录 懂分享</div>
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#header-navbar" aria-expanded="false"> <span class="sr-only"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
@@ -56,10 +56,10 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li><a data-cont="木庄网络博客" title="木庄网络博客" href="index.html">首页</a></li>
                     <li><a data-cont="列表页" title="列表页" href="list.html">列表页</a></li>
-                    <li><a data-cont="详细页" title="详细页" href="show.html">详细页</a></li>
-                    <li><a data-cont="404" title="404" href="404.html">404</a></li>
-                    <li><a data-cont="MZ-NetBolg主题" title="MZ-NetBolg主题" href="http://www.muzhuangnet.com/list/mznetblog/" >MZ-NetBolg主题</a></li>
-                    <li><a data-cont="IT技术笔记" title="IT技术笔记" href="http://www.muzhuangnet.com/list/code/" >IT技术笔记</a></li>
+                    {{--<li><a data-cont="详细页" title="详细页" href="show.html">详细页</a></li>--}}
+                    {{--<li><a data-cont="404" title="404" href="404.html">404</a></li>--}}
+                    {{--<li><a data-cont="MZ-NetBolg主题" title="MZ-NetBolg主题" href="http://www.muzhuangnet.com/list/mznetblog/" >MZ-NetBolg主题</a></li>--}}
+                    {{--<li><a data-cont="IT技术笔记" title="IT技术笔记" href="http://www.muzhuangnet.com/list/code/" >IT技术笔记</a></li>--}}
                     <li><a data-cont="源码分享" title="源码分享" href="http://www.muzhuangnet.com/list/share/" >源码分享</a></li>
                     <li><a data-cont="靠谱网赚" title="靠谱网赚" href="http://www.muzhuangnet.com/list/money/" >靠谱网赚</a></li>
                     <li><a data-cont="资讯分享" title="资讯分享" href="http://www.muzhuangnet.com/list/news/" >资讯分享</a></li>
@@ -73,33 +73,37 @@
         <div class="content">
             <div id="focusslide" class="carousel slide" data-ride="carousel">
                 <ol class="carousel-indicators">
-                    <li data-target="#focusslide" data-slide-to="0" class="active"></li>
-                    <li data-target="#focusslide" data-slide-to="1"></li>
+                    {{--<li data-target="#focusslide" data-slide-to="0" class="active"></li>--}}
+                    {{--<li data-target="#focusslide" data-slide-to="1"></li>--}}
                 </ol>
-                <div class="carousel-inner" role="listbox">
-                    <div class="item active">
-                        <a href="http://www.muzhuangnet.com/show/269.html" target="_blank" title="木庄网络博客源码" >
-                            <img src="http://www.muzhuangnet.com/upload/201610/18/201610181557196870.jpg" alt="木庄网络博客源码" class="img-responsive"></a>
-                    </div>
-                    <div class="item">
-                        <a href="http://web.muzhuangnet.com/" target="_blank" title="专业网站建设" >
-                            <img src="http://www.muzhuangnet.com/upload/201610/24/201610241227558789.jpg" alt="专业网站建设" class="img-responsive"></a>
-                    </div>
-                </div>
-                <a class="left carousel-control" href="#focusslide" role="button" data-slide="prev" rel="nofollow"> <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> <span class="sr-only">上一个</span> </a> <a class="right carousel-control" href="#focusslide" role="button" data-slide="next" rel="nofollow"> <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> <span class="sr-only">下一个</span> </a> </div>
-            <article class="excerpt-minic excerpt-minic-index">
-                <h2><span class="red">【推荐】</span><a target="_blank" href="http://www.muzhuangnet.com/show/269.html" title="用DTcms做一个独立博客网站（响应式模板）" >用DTcms做一个独立博客网站（响应式模板）</a>
-                </h2>
-                <p class="note">用DTcms做一个独立博客网站（响应式模板），采用DTcms V4.0正式版（MSSQL）。开发环境：SQL2008R2+VS2010。DTcms V4.0正式版功能修复和优化：1、favicon.ico图标后台上传。（解决要换图标时要连FTP或者开服务器的麻烦）</p>
-            </article>
+                {{--<div class="carousel-inner" role="listbox">--}}
+                    {{--<div class="item active">--}}
+                        {{--<a href="http://www.muzhuangnet.com/show/269.html" target="_blank" title="木庄网络博客源码" >--}}
+                            {{--<img src="http://www.muzhuangnet.com/upload/201610/18/201610181557196870.jpg" alt="木庄网络博客源码" class="img-responsive"></a>--}}
+                    {{--</div>--}}
+                    {{--<div class="item">--}}
+                        {{--<a href="http://web.muzhuangnet.com/" target="_blank" title="专业网站建设" >--}}
+                            {{--<img src="http://www.muzhuangnet.com/upload/201610/24/201610241227558789.jpg" alt="专业网站建设" class="img-responsive"></a>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
+                {{--<a class="left carousel-control" href="#focusslide" role="button" data-slide="prev" rel="nofollow">--}}
+                    {{--<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> <span class="sr-only">上一个</span> </a> --}}
+                {{--<a class="right carousel-control" href="#focusslide" role="button" data-slide="next" rel="nofollow"> --}}
+                    {{--<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> <span class="sr-only">下一个</span> </a>--}}
+            </div>
+            {{--<article class="excerpt-minic excerpt-minic-index">--}}
+                {{--<h2><span class="red">【推荐】</span><a target="_blank" href="http://www.muzhuangnet.com/show/269.html" title="用DTcms做一个独立博客网站（响应式模板）" >用DTcms做一个独立博客网站（响应式模板）</a>--}}
+                {{--</h2>--}}
+                {{--<p class="note">用DTcms做一个独立博客网站（响应式模板），采用DTcms V4.0正式版（MSSQL）。开发环境：SQL2008R2+VS2010。DTcms V4.0正式版功能修复和优化：1、favicon.ico图标后台上传。（解决要换图标时要连FTP或者开服务器的麻烦）</p>--}}
+            {{--</article>--}}
             <div class="title">
                 <h3>最新发布</h3>
                 <div class="more">
-                    <a href="http://www.muzhuangnet.com/list/mznetblog/" title="MZ-NetBlog主题" >MZ-NetBlog主题</a>
-                    <a href="http://www.muzhuangnet.com/list/code/" title="IT技术笔记" >IT技术笔记</a>
-                    <a href="http://www.muzhuangnet.com/list/share/" title="源码分享" >源码分享</a>
-                    <a href="http://www.muzhuangnet.com/list/money/" title="靠谱网赚" >靠谱网赚</a>
-                    <a href="http://www.muzhuangnet.com/list/news/" title="资讯分享" >资讯分享</a>
+                    <a href="http://www.muzhuangnet.com/list/mznetblog/" title="MZ-NetBlog主题" >前端开发</a>
+                    <a href="http://www.muzhuangnet.com/list/code/" title="IT技术笔记" >后端开发</a>
+                    <a href="http://www.muzhuangnet.com/list/share/" title="源码分享" >laravel相关</a>
+                    <a href="http://www.muzhuangnet.com/list/money/" title="靠谱网赚" >数据库</a>
+                    <a href="http://www.muzhuangnet.com/list/news/" title="资讯分享" >生活感悟</a>
                 </div>
             </div>
             <article class="excerpt excerpt-1" style="">
