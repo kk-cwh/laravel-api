@@ -80,6 +80,9 @@ class ApiResponse
 	 */
 	public function item($data, $resourceClass, $meta = [])
 	{
+        if(is_null($data)){
+            return compact('data');
+        }
 		if (count($meta)) {
 			return (new $resourceClass($data))->additional($meta);
 		}

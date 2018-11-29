@@ -14,6 +14,9 @@ use Illuminate\Http\Request;
 */
 
 Route::post('auth/login', 'Api\JwtAuthController@login')->name('auth.login');
+Route::post('bind', 'Api\GatewayController@bind')->name('gateway.bind');
+Route::post('send', 'Api\GatewayController@sendMessage')->name('gateway.send_message');
+Route::post('replay', 'Api\GatewayController@replayMessage')->name('gateway.replay_message');
 
 Route::namespace('Api')->group(function (){
 
@@ -37,6 +40,7 @@ Route::namespace('Api')->group(function (){
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
 
 
 
